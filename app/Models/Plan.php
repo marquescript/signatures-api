@@ -16,4 +16,9 @@ class Plan extends Model
         'price'
     ];
 
+    public function signatures()
+    {
+        return $this->hasMany(Signature::class);
+    }
+
 }

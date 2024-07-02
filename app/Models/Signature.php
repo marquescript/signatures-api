@@ -21,4 +21,24 @@ class Signature extends Model
         'status' => SignatureStatus::class
     ];
 
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function signatureHistories()
+    {
+        return $this->hasMany(SignatureHistory::class);
+    }
+
 }
