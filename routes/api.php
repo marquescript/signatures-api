@@ -7,6 +7,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/', function (Request $request) {
-    return "ola api";
-});
+Route::apiResource('/signature', \App\Http\Controllers\SignatureController::class);
+
+Route::apiResource('/plan', \App\Http\Controllers\PlanController::class);
