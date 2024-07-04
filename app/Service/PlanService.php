@@ -12,41 +12,20 @@ class PlanService
         return Plan::all();
     }
 
-    public function findById($id)
-    {
-        $plan = Plan::find($id);
-        if(!$plan)
-        {
-            return false;
-        }
-        return $plan;
-    }
-
     public function create(array $data)
     {
         return Plan::create($data);
     }
 
-    public function update($id, $data)
+    public function update($plan, $data)
     {
-        $plan = Plan::find($id);
-        if($plan)
-        {
-            $plan->update($data);
-            return $plan;
-        }
-        return false;
+         $plan->update($data);
+        return $plan;
     }
 
-    public function deleteById($id)
+    public function delete($plan)
     {
-        $plan = Plan::find($id);
-        if($plan)
-        {
-            $plan->delete($id);
-            return true;
-        }
-        return false;
+        $plan->delete($plan);
     }
 
 }

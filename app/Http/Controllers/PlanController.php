@@ -25,36 +25,21 @@ class PlanController extends Controller
         return response()->json($plan, 201);
     }
 
-
-    public function show(string $id)
+    public function show(Plan $plan)
     {
-        $plan = $this->planService->findById($id);
-        if(!$plan)
-        {
-            return response()->json(['error' => 'Plan not found'], 404);
-        }
         return response()->json($plan, 200);
     }
 
-
-    public function update(PlanRequest $request, string $id)
+    public function update(PlanRequest $request, Plan $plan)
     {
         $data = $request->all();
-        $plan = $this->planService->update($id,$data);
-        if(!$plan)
-        {
-            return response()->json(['error' => 'Plan not found'], 404);
-        }
+        $plan = $this->planService->update($plan,$data);
         return response()->json($plan, 200);
     }
 
-    public function destroy(string $id)
+    public function destroy(Plan $plan)
     {
-        $data = $this->planService->deleteById($id);
-        if(!$data)
-        {
-            return response()->json(['error' => 'Plan not found'], 404);
-        }
+        $this->planService->delete($plan);
         return response()->json(null,204);
     }
 }
