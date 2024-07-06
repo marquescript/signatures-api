@@ -20,7 +20,7 @@ class PlanController extends Controller
 
     public function store(PlanRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $plan = $this->planService->create($data);
         return response()->json($plan, 201);
     }
