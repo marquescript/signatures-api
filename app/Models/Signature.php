@@ -31,14 +31,4 @@ class Signature extends Model
         return $this->belongsTo(Plan::class);
     }
 
-    public function transactions()
-    {
-        return $this->hasMany(Transaction::class);
-    }
-
-    public function signatureHistories()
-    {
-        return $this->hasMany(SignatureHistory::class);
-    }
-
 }

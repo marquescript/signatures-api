@@ -9,7 +9,7 @@ class PlanService
 
     public function findAll()
     {
-        return Plan::all();
+        return Plan::select('id','name', 'description', 'cod', 'price')->get();
     }
 
     public function create(array $data)
@@ -19,7 +19,7 @@ class PlanService
 
     public function update($plan, $data)
     {
-         $plan->update($data);
+        $plan->update($data);
         return $plan;
     }
 
