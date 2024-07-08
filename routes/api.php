@@ -3,10 +3,18 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::apiResource('/user', \App\Http\Controllers\UserController::class);
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
 
-Route::apiResource('/client', \App\Http\Controllers\ClientController::class)
-    ->missing(fn() => response()->json(['error' => 'Client not found'], 404));
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+
+    Route::apiResource('/user', \App\Http\Controllers\UserController::class);
+
+    Route::apiResource('/client', \App\Http\Controllers\ClientController::class)
+        ->missing(fn() => response()->json(['error' => 'Client not found'], 404));
+});
+
 
 Route::apiResource('/signature', \App\Http\Controllers\SignatureController::class);
 

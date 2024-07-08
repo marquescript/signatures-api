@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientRequest;
 use App\Models\Client;
 use App\Service\ClientService;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class ClientController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
         $data = $request->all();
         $client = $this->clientService->create($data);
@@ -32,9 +33,9 @@ class ClientController extends Controller
         return response()->json($client, 200);
     }
 
-    public function update(Request $request, Client $client)
+    public function update(ClientRequest $request, Client $client)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $client = $this->clientService->update($client, $data);
         return response()->json($client, 200);
     }
