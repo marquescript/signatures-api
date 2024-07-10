@@ -20,8 +20,7 @@ class ClientService
 
     public function find($id)
     {
-        $client = Client::with('user')->find($id);
-        throw_if(!$client, EntityNotFound::class, self::$entity);
+        $client = self::verifyClientExists($id);
         return new ClientResource($client);
     }
 
@@ -33,22 +32,27 @@ class ClientService
 
     public function update($id, $data)
     {
-        $client = Client::find($id);
-        throw_if(!$client, EntityNotFound::class, self::$entity);
+        $client = self::verifyClientExists($id);
         $client->update($data);
         return new ClientResource($client);
     }
 
     public function delete($id)
     {
-        $client = Client::find($id);
-        throw_if(!$client, EntityNotFound::class, self::$entity);
+        $client = self::verifyClientExists($id);
         $client->delete();
     }
 
     private static function userHasClient($userId)
     {
         return Client::where('user_id', $userId)->exists();
+    }
+
+    private static function verifyClientExists($id)
+    {
+        $client = Client::find($id);
+        throw_if(!$client, EntityNotFound::class, self::$entity);
+        return $client;
     }
 
 }

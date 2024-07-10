@@ -23,7 +23,7 @@ class PlanRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'cod' => 'required|max:5',
+            'cod' => 'required|max:5|unique:plans,cod',
             'description' => 'required|string',
             'price' => 'required'
         ];

@@ -20,26 +20,27 @@ class PlanController extends Controller
 
     public function store(PlanRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
         $plan = $this->planService->create($data);
         return response()->json($plan, 201);
     }
 
-    public function show(Plan $plan)
+    public function show(string $id)
     {
+        $plan = $this->planService->find($id);
         return response()->json($plan, 200);
     }
 
-    public function update(PlanRequest $request, Plan $plan)
+    public function update(PlanRequest $request, string $id)
     {
         $data = $request->all();
-        $plan = $this->planService->update($plan,$data);
+        $plan = $this->planService->update($id,$data);
         return response()->json($plan, 200);
     }
 
-    public function destroy(Plan $plan)
+    public function destroy(string $id)
     {
-        $this->planService->delete($plan);
+        $this->planService->delete($id);
         return response()->json(null,204);
     }
 }

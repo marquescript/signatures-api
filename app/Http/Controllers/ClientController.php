@@ -19,7 +19,6 @@ class ClientController extends Controller
         return response()->json($clients, 200);
     }
 
-
     public function store(ClientRequest $request)
     {
         $data = $request->all();
