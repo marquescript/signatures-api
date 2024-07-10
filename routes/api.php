@@ -12,7 +12,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/user', \App\Http\Controllers\UserController::class);
 
     Route::apiResource('/client', \App\Http\Controllers\ClientController::class)
-        ->missing(fn() => response()->json(['error' => 'Client not found'], 404));
+        ;
 });
 
 
@@ -21,4 +21,9 @@ Route::apiResource('/signature', \App\Http\Controllers\SignatureController::clas
 Route::apiResource('/plan', \App\Http\Controllers\PlanController::class)
     ->parameters(['plan' => 'plan:cod'])
     ->missing(fn() => response()->json(['error' => 'Plan not found'], 404));
+
+Route::get('/error', function (Request $request, \Illuminate\Http\Response $response){
+   return throw new \App\Exceptions\EntityNotFound();
+});
+
 

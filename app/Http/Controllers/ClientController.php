@@ -27,23 +27,27 @@ class ClientController extends Controller
         return response()->json($client, 201);
     }
 
-    public function show(Client $client)
+    public function show(string $id)
     {
-        $client = $this->clientService->find($client);
+
+        $client = $this->clientService->find($id);
         return response()->json($client, 200);
     }
 
-    public function update(ClientRequest $request, Client $client)
+    public function update(ClientRequest $request, string $id)
     {
-        $data = $request->validated();
-        $client = $this->clientService->update($client, $data);
+        $data = $request->all();
+        $client = $this->clientService->update($id, $data);
         return response()->json($client, 200);
     }
 
-    public function destroy(Client $client)
+    public function destroy(string $id)
     {
-        $this->clientService->delete($client);
+        $this->clientService->delete($id);
         return response()->json(null, 204);
 
     }
+
 }
+
+
