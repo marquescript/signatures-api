@@ -3,15 +3,17 @@
 namespace App\Service;
 
 use App\Exceptions\EntityNotFound;
+use App\Http\Resources\PlanResource;
 use App\Models\Plan;
 
 class PlanService
 {
     private static $entity = 'Plan';
 
-    public function findAll()
+    public function findAll($url)
     {
-        return Plan::select('id','name', 'description', 'cod', 'price')->get();
+        $url = $url->query('records', 5);
+        return Plan::paginate($url);
     }
 
     public function find($id)

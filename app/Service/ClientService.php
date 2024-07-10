@@ -15,26 +15,26 @@ class ClientService
     public function findAll($url)
     {
         $url = $url->query('records', 5);
-        return ClientResource::collection(Client::with('user')->paginate($url));
+        return (Client::with('user')->paginate($url));
     }
 
     public function find($id)
     {
         $client = self::verifyClientExists($id);
-        return new ClientResource($client);
+        return $client;
     }
 
     public function create(array $data)
     {
         throw_if(self::userHasClient($data['user_id']), EntityAlreadyExists::class);
-        return new ClientResource(Client::create($data));
+        return Client::create($data);
     }
 
     public function update($id, $data)
     {
         $client = self::verifyClientExists($id);
         $client->update($data);
-        return new ClientResource($client);
+        return $client;
     }
 
     public function delete($id)
