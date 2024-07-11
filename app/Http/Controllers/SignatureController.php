@@ -2,63 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SignatureRequest;
+use App\Service\SignatureService;
 use Illuminate\Http\Request;
 
 class SignatureController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function __construct(private SignatureService $signatureService)
+    {}
+
+    public function index(Request $request)
     {
-        //
+        $signatures = $this->signatureService->findAll($request);
+        return response()->json($signatures, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(SignatureRequest $request)
     {
-        //
+        $signature = $this->signatureService->create($request->all());
+        return response()->json($signature, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $signature = $this->signatureService->find($id);
+        return response()->json($signature, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(SignatureRequest $request, string $id)
     {
-        //
+        $signature = $this->signatureService->update($id, $request->all());
+        return response()->json($signature, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $this->signatureService->delete($id);
+        return response()->json(null, 204);
     }
 }
