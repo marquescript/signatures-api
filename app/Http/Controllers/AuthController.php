@@ -2,28 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\UserRequest;
+use App\Service\AuthService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Nette\Schema\ValidationException;
+
 
 class AuthController extends Controller
 {
+
+    public function __construct(private AuthService $authService)
+    {}
+
     public function login(Request $request)
     {
-        $user = User::where('email', $request->get('email'))->first();
-
-        if(!$user || !Hash::check($request->get('password'), $user->password))
-        {
-            throw ValidationException::withMesages([
-                'credentials' => 'The credentials are incorrect.'
-            ]);
-        }
-        return [
-            'access_token' => $user
-                ->createToken($user->name.$user->created_at)
-                ->plainTextToken
-        ];
+        $access_token = $this->authService->login($request->all());
+        return response()->json(['access_token' => $access_token], 200);
     }
 
     public function logout()
@@ -31,6 +24,12 @@ class AuthController extends Controller
         $user = auth()->user();
         $user->currentAccessToken()->delete();
         return response()->json(['message' => 'Token revoked'], 200);
+    }
+
+    public function register(UserRequest $request)
+    {
+        $this->authService->register($request->all());
+        return response()->json(['message' => 'User registered successfully'], 201);
     }
 
 }
