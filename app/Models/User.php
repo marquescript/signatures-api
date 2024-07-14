@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
     ];
 
@@ -30,6 +31,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'role',
         'remember_token',
     ];
 
@@ -53,7 +55,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->name == 'carlos';
+        return $this->role == 'admin';
     }
 
 }
