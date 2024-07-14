@@ -10,12 +10,14 @@ use function Laravel\Prompts\select;
 
 class ClientService
 {
+    public function __construct(private Client $client)
+    {}
     private static $entity = 'Client';
 
     public function findAll($url)
     {
         $url = $url->query('records', 5);
-        return (Client::with('user')->paginate($url));
+        return ($this->client->with('user')->paginate($url));
     }
 
     public function find($id)
@@ -43,14 +45,14 @@ class ClientService
         $client->delete();
     }
 
-    private static function userHasClient($userId)
+    private function userHasClient($userId)
     {
-        return Client::where('user_id', $userId)->exists();
+        return $this->client->where('user_id', $userId)->exists();
     }
 
-    private static function verifyClientExists($id)
+    private function verifyClientExists($id)
     {
-        $client = Client::find($id);
+        $client = $this->client->find($id);
         throw_if(!$client, EntityNotFound::class, self::$entity);
         return $client;
     }

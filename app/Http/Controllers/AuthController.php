@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Providers\AuthServiceInterface;
 use App\Service\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 
 class AuthController extends Controller
 {
 
-    public function __construct(private AuthService $authService)
+    public function __construct(private AuthServiceInterface $authService)
     {}
 
     public function login(Request $request)

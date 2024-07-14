@@ -3,15 +3,17 @@
 namespace App\Service;
 
 use App\Models\User;
+use App\Providers\AuthServiceInterface;
 use Illuminate\Support\Facades\Hash;
 use Nette\Schema\ValidationException;
 
-class AuthService
+class AuthService implements AuthServiceInterface
 {
-
+    public function __construct(private User $user)
+    {}
     public function login(array $data)
     {
-        $user = User::where('email', $data['email'])->first();
+        $user = $this->user->where('email', $data['email'])->first();
 
         if(!$user || !Hash::check($data['password'], $user->password))
         {

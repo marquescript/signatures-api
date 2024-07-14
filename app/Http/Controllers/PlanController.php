@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PlanRequest;
 use App\Http\Resources\PlanResource;
-use App\Models\Plan;
 use App\Service\PlanService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class PlanController extends Controller
 {

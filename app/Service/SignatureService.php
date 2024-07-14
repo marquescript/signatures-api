@@ -8,12 +8,14 @@ use App\Models\Signature;
 
 class SignatureService
 {
+    public function __construct(private Signature $signature)
+    {}
     private static $entity = 'Signature';
 
     public function findAll($url)
     {
         $url = $url->query('records', 5);
-        return Signature::paginate($url);
+        return $this->signature->paginate($url);
     }
 
     public function find($id)
@@ -24,7 +26,7 @@ class SignatureService
 
     public function create(array $data)
     {
-        return Signature::create($data);
+        return $this->signature->create($data);
     }
 
     public function update($id, array $data)
@@ -43,9 +45,9 @@ class SignatureService
         $signature->delete();
     }
 
-    private static function verifySignatureExists($id)
+    private function verifySignatureExists($id)
     {
-        $signature = Signature::find($id);
+        $signature = $this->signature->find($id);
         throw_if(!$signature, EntityNotFound::class, self::$entity);
         return $signature;
     }

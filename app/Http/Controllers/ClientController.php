@@ -7,6 +7,7 @@ use App\Http\Resources\ClientResource;
 use App\Models\Client;
 use App\Service\ClientService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class ClientController extends Controller
 {

@@ -8,12 +8,14 @@ use App\Models\Plan;
 
 class PlanService
 {
+    public function __construct(private Plan $plan)
+    {}
     private static $entity = 'Plan';
 
     public function findAll($url)
     {
         $url = $url->query('records', 5);
-        return Plan::paginate($url);
+        return $this->plan->paginate($url);
     }
 
     public function find($id)
@@ -24,7 +26,7 @@ class PlanService
 
     public function create(array $data)
     {
-        return Plan::create($data);
+        return $this->plan->create($data);
     }
 
     public function update($id, $data)
@@ -40,9 +42,9 @@ class PlanService
         $plan->delete($plan);
     }
 
-    private static function verifyPlanExists($id)
+    private function verifyPlanExists($id)
     {
-        $plan = Plan::find($id);
+        $plan = $this->plan->find($id);
         throw_if(!$plan, EntityNotFound::class, self::$entity);
         return $plan;
     }

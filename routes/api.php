@@ -11,14 +11,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 
-    Route::apiResource('/user', \App\Http\Controllers\UserController::class);
+    Route::apiResource('/user', \App\Http\Controllers\UserController::class)->except(['index']);
 
     Route::apiResource('/client', \App\Http\Controllers\ClientController::class);
+
+    Route::apiResource('/signature', \App\Http\Controllers\SignatureController::class);
+
+    Route::apiResource('/plan', \App\Http\Controllers\PlanController::class);
+
 });
 
-Route::apiResource('/signature', \App\Http\Controllers\SignatureController::class);
-
-Route::apiResource('/plan', \App\Http\Controllers\PlanController::class);
 
 
 
