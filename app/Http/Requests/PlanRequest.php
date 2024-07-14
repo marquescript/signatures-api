@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Exceptions\UnauthorizedException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class PlanRequest extends FormRequest
 {
