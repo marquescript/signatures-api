@@ -2,7 +2,7 @@
 
 ## Sobre o projeto
 
-Este é um projeto simples de estudo, focado em desenvolvedor e conhecer o enorme ecossistema do framework laravel
+Este é um projeto simples de estudo, focado em desenvolver e conhecer o enorme ecossistema do framework laravel
 
 ## Requisitos
 **Docker**
